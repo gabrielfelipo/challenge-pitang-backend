@@ -12,7 +12,7 @@ export class CitizenRepository {
         })
     }
     
-    async findById(id: number): Promise<Citizen> | null {
+    async findById(id: string): Promise<Citizen> | null {
         return this.prisma.citizen.findUnique({
             where: {id}
         })
