@@ -1,0 +1,15 @@
+services:
+  db:
+    container_name: challenge-pitang-api
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=12345678
+    ports:
+      - '5432:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+volumes: 
+  db:
+    driver: local
