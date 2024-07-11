@@ -19,5 +19,13 @@ export class ScheduleRepository {
         })
     }
 
-    
+    async countSchedules(date: Date, hour: Date): Promise<number> {
+        return this.prisma.schedule.count({
+            where: {
+                date: date,
+                hour: hour
+            }
+        });
+    }
+
 }

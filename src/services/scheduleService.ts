@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, ConflictException, Injectable } from '@nestjs/common';
 import dayjs from 'dayjs';
 import { PrismaService } from 'prisma/client';
 import { CitizenRepository } from 'src/repositories/citizenRepository';
@@ -15,11 +15,20 @@ export class ScheduleService {
   async scheduleCitizen(data: ScheduleCitizenDto) {
     const { name, birthDate, date, hour } = data
 
-    //Numero de agendamentos
-    // const count = await this.scheduleRepository.count()
-    // if sada return error
+    //reached schedule limit
+    const count = await this.scheduleRepository.countSchedules(
+      dayjs(date, 'YYYY-MM-DD').toDate(),
+      dayjs(hour, 'HH:mm').toDate()
+    )
 
-    //Horario futuro
+    if (count > 1) {
+      throw new ConflictException('Schedule limit reached for this date and hour.');
+    }
+
+    // Future date
+    if (dayjs(date).isBefore(dayjs(), 'hour')) {
+      throw new BadRequestException('This date is in the past.');
+    }
 
     const citizen = await this.citizenRepository.create({
         name,
