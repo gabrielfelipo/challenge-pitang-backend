@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Citizen {
+  id        String    @id @default(uuid()) @db.Uuid
+  serial    Int       @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  name      String
+  birthDate DateTime
+  schedule  Schedule?
+}
+
+model Schedule {
+  id         String       @id @default(uuid()) @db.Uuid
+  serial     Int          @default(autoincrement())
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  date       DateTime
+  time       DateTime     @db.Time()
+  status     Status       @default(NOT_ATTENDED)
+  conclusion CovidStatus?
+  citizen    Citizen      @relation(fields: [citizenId], references: [id])
+  citizenId  String       @unique
+}
+
+enum CovidStatus {
+  COVID
+  NO_COVID
+}
+
+enum Status {
+  ATTENDED
+  NOT_ATTENDED
+}
