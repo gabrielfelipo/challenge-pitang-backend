@@ -39,5 +39,19 @@ export class PrismaScheduleRepository extends ScheduleRepository{
 
         return count
     }
+
+    async getAll(): Promise<Schedule[] | null> {
+        const schedules = await this.prisma.schedule.findMany({})
+    
+        if (!schedules || schedules.length === 0) return null
+    
+        const domainSchedules: Schedule[] = []
+    
+        for (const schedule of schedules) {
+            domainSchedules.push(ScheduleMapper.toDomain(schedule))
+        }
+    
+        return domainSchedules
+    }
     
 }
