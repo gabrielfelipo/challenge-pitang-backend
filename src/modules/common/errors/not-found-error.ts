@@ -1,8 +1,8 @@
 import { DomainError, ErrorCodes } from ".";
 
-export class LimitReachedError implements DomainError {
-    error = "LimitReached Error"
-    code = ErrorCodes.LIMIT_REACHED_ERROR
+export class NoneElementError implements DomainError {
+    error = "NoneElement Error";
+    code = ErrorCodes.NONE_ELEMENT_ERROR;
     response: unknown
 
     constructor(message: string) {

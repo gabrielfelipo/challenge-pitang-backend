@@ -1,12 +1,16 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ScheduleCitizenExamDto, scheduleCitizenExamSchema } from './dtos';
 
 import { ZodValidationPipe } from 'src/utils/validation-pipe';
 import { ScheduleCitizenExamUseCase } from './useCases/schedule-citizen-exam';
+import { ListSchedulesUseCase } from './useCases/list-schedules';
 
 @Controller('schedules')
 export class ScheduleCitizenController {
-  constructor(private readonly scheduleCitizenExamUseCase: ScheduleCitizenExamUseCase) {}
+  constructor(
+    private readonly scheduleCitizenExamUseCase: ScheduleCitizenExamUseCase, 
+    private readonly listSchedulesUseCase: ListSchedulesUseCase
+  ) {}
 
   @Post()
   async scheduleCitizen(
@@ -14,4 +18,11 @@ export class ScheduleCitizenController {
   ) {
     return this.scheduleCitizenExamUseCase.execute(scheduleCitizenExamDto);
   }
+
+  @Get()
+  async listSchedules() {
+    return this.listSchedulesUseCase.execute();
+  }
+
+  
 }

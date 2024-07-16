@@ -5,10 +5,12 @@ export enum ErrorCodes {
     GENERIC_ERROR = 3,
     UNAUTHORIZED_ERROR = 4,
     FORBID_ERROR = 5,
-    LIMIT_REACHED = 6
+    LIMIT_REACHED_ERROR = 6,
+    NONE_ELEMENT_ERROR = 7
   }
   
   export interface DomainError {
     error: string
     code: ErrorCodes
+    response: unknown;
   }
