@@ -58,17 +58,3 @@ export class Schedule extends Entity<ScheduleProps> {
   }
 }
 
-class ScheduleEntity {
-    id: string
-    date: Date
-    hour: Date
-    citizen?: Citizen
-    citizenId: string
-    status?: string
-    conclusion?: string
-
-    constructor(schedule: Schedule){
-        Object.assign(this, schedule.props)
-        this.id = schedule.id
-    }
-}

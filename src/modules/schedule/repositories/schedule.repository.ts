@@ -10,5 +10,5 @@ export abstract class ScheduleRepository{
 
     abstract countSchedules(date: Date, hour: Date): Promise<number>
 
-    abstract getAll(): Promise<Schedule[] | null>
+    abstract findAll(skip: number, take: number): Promise<Schedule[]>
 }

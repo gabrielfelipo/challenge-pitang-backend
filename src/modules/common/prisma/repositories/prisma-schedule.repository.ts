@@ -5,7 +5,6 @@ import { PrismaService } from "../prisma.service";
 import { ScheduleRepository } from "src/modules/schedule/repositories/schedule.repository";
 import { ScheduleMapper } from "../mappers/schedule.mapper";
 import { Injectable } from "@nestjs/common";
-import { Citizen } from "src/modules/citizen/entities/Citizen";
 
 @Injectable()
 export class PrismaScheduleRepository extends ScheduleRepository{
@@ -40,10 +39,12 @@ export class PrismaScheduleRepository extends ScheduleRepository{
         return count
     }
 
-    async getAll(): Promise<Schedule[] | null> {
-        const schedules = await this.prisma.schedule.findMany({})
-    
-        if (!schedules || schedules.length === 0) return null
+    async findAll(skip: number, take: number): Promise<Schedule[]> {
+        const schedules = await this.prisma.schedule.findMany({
+            skip: skip, 
+            take: take, 
+            include: {citizen: true}
+        })
     
         const domainSchedules: Schedule[] = []
     
