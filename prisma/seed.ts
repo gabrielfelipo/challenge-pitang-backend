@@ -44,8 +44,8 @@ async function prismaSeed() {
     
         await prisma.schedule.create({
             data: {
-                date: new Date(dayjs().add(faker.number.int({min:0, max:6}), 'day').toString()),
-                hour: new Date(dayjs().hour(8).minute(0).second(0).millisecond(0).add(faker.number.int({min:0, max:9}), 'hour').toString()),
+                date: dayjs().add(faker.number.int({min:0, max:6}), 'day').format('YYYY-MM-DD'),
+                hour: faker.number.int({min:8, max:17}).toString(),
                 citizenId: citizen.id
             }
         })

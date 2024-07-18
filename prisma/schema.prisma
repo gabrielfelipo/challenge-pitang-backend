@@ -27,8 +27,8 @@ model Schedule {
   serial     Int          @default(autoincrement())
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
-  date       DateTime
-  hour       DateTime     @db.Time()
+  date       String
+  hour       String
   status     Status       @default(NOT_ATTENDED)
   conclusion CovidStatus?
   citizen    Citizen      @relation(fields: [citizenId], references: [id], onDelete: Cascade, onUpdate: Cascade)
