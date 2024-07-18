@@ -1,14 +1,13 @@
-import { Injectable } from "@nestjs/common";
-import { Schedule } from "../entities/Schedule";
+import { Injectable } from '@nestjs/common'
+import { Schedule } from '../entities/Schedule'
 
 @Injectable()
-export abstract class ScheduleRepository{
+export abstract class ScheduleRepository {
+  abstract create(schedule: Schedule): Promise<Schedule>
 
-    abstract create(schedule: Schedule): Promise<Schedule>
+  abstract findById(id: string): Promise<Schedule | null>
 
-    abstract findById(id: string): Promise<Schedule | null>
+  abstract countSchedules(date: string, hour: string): Promise<number>
 
-    abstract countSchedules(date: Date, hour: Date): Promise<number>
-
-    abstract findAll(skip: number, take: number): Promise<Schedule[]>
+  abstract findAll(skip: number, take: number): Promise<Schedule[]>
 }

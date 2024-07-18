@@ -1,4 +1,4 @@
-import { DomainError, ErrorCodes } from "."
+import { DomainError, ErrorCodes } from '.'
 
 export class UnauthorizedError implements DomainError {
   error = 'Unauthorized Error'
@@ -8,4 +8,4 @@ export class UnauthorizedError implements DomainError {
   constructor(message?: string) {
     this.response = { message: message ?? 'Unauthorized access' }
   }
-} 
+}
