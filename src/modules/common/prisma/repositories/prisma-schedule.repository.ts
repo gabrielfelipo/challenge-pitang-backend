@@ -43,14 +43,9 @@ export class PrismaScheduleRepository extends ScheduleRepository {
       skip: skip,
       take: take,
       include: { citizen: true },
+      orderBy: [{ date: 'asc' }, { hour: 'asc' }],
     })
 
-    const domainSchedules: Schedule[] = []
-
-    for (const schedule of schedules) {
-      domainSchedules.push(ScheduleMapper.toDomain(schedule))
-    }
-
-    return domainSchedules
+    return schedules.map(ScheduleMapper.toDomain)
   }
 }
