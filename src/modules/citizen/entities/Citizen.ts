@@ -1,5 +1,5 @@
-import { Entity } from 'src/modules/common/entities/entity';
-import { Schedule } from 'src/modules/schedule/entities/Schedule';
+import { Entity } from 'src/modules/common/entities/entity'
+import { Schedule } from 'src/modules/schedule/entities/Schedule'
 
 type CitizenProps = {
   name: string
@@ -23,15 +23,15 @@ export class Citizen extends Entity<CitizenProps> {
   }
 
   get _serialized() {
-    return{
-        id: this.id,
-        name: this.name,
-        birthDate: this.birthDate,
-        schedule: this.schedule ? this.schedule._serialized : undefined
+    return {
+      id: this.id,
+      name: this.name,
+      birthDate: this.birthDate,
+      schedule: this.schedule ? this.schedule._serialized : undefined,
     }
-}
+  }
 
-  static create(props: CitizenProps, id?: string){
+  static create(props: CitizenProps, id?: string) {
     const citizen = new Citizen(props, id)
 
     return citizen
